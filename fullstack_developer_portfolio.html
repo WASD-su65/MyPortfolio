@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | POOMIPAT</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700&family=DM+Mono:wght@400;500&family=Kanit:wght@300;400;500&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0}
+        :root{
+            --bg:#0a0a0f;--surface:#13131a;--surface2:#1c1c26;--border:#2a2a3a;
+            --accent:#6c63ff;--accent2:#00d4aa;--accent3:#ff6b6b;
+            --text:#f0f0f8;--muted:#7a7a9a;--tag-bg:#1e1e2e;
+        }
+        body{
+            background:var(--bg);
+            color:var(--text);
+            font-family: 'Syne', 'Kanit', sans-serif; 
+            min-height:100vh;
+        }
+
+        .hero{padding:3rem 2rem 2rem;text-align:center;position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(108,99,255,.25) 0%,transparent 70%);pointer-events:none}
+        .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(108,99,255,.15);border:1px solid rgba(108,99,255,.4);border-radius:20px;padding:4px 14px;font-size:12px;color:#a09aff;font-family:'DM Mono',monospace;margin-bottom:1.5rem;letter-spacing:.05em}
+        .dot{width:7px;height:7px;border-radius:50%;background:#6c63ff;animation:pulse 1.8s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+        h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.1;letter-spacing:-.03em}
+        h1 span{color:var(--accent)}
+        .subtitle{color:var(--muted);margin-top:.75rem;font-size:.95rem;line-height:1.6;max-width:520px;margin-inline:auto}
+        
+        .stack-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:1.5rem}
+        .pill{background:var(--tag-bg);border:1px solid var(--border);border-radius:8px;padding:4px 12px;font-size:12px;font-family:'DM Mono',monospace;color:var(--muted)}
+        .pill.h{color:#f7a41d} .pill.r{color:#61dafb} .pill.p{color:#3572a5} .pill.n{color:#8cc84b}
+        .pill.ts{color:#3178c6} .pill.go{color:#00acd7} .pill.pg{color:#336791} .pill.dk{color:#2496ed}
+        .pill.yellow { color: #f7df1e; } .pill.red { color: #ff0000; } .pill.v { color: #bf94ff; }
+        .section{padding:1.5rem 1.5rem;max-width:900px;margin-inline:auto}
+        .section-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem}
+        .projects{display:grid;gap:20px}
+        
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: border-color .2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover{border-color:rgba(108,99,255,.5)}
+
+        .card-image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            padding: 12px;
+            background: var(--surface2);
+        }
+
+        .card-image-grid img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .card-image-grid img:hover {
+            transform: scale(1.02);
+            opacity: 1;
+        }
+
+        .card-no-image {
+          padding: 20px;
+          background: linear-gradient(to bottom right, var(--surface2), var(--bg));
+          border-bottom: 1px solid var(--border);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          min-height: 140px;
+        }
+
+        .card-content { padding: 1.5rem; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+        .card-title{font-size:1.05rem;font-weight:500}
+        .card-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:2px 8px}
+        .card-desc{font-size:.875rem;color:var(--muted);line-height:1.65;margin-bottom:.9rem}
+        
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+        .tag{font-family:'DM Mono',monospace;font-size:11px;border-radius:6px;padding:3px 9px;border:1px solid}
+        .tag.blue{background:rgba(49,120,198,.15);color:#7ab3f0;border-color:rgba(49,120,198,.35)}
+        .tag.green{background:rgba(0,212,170,.1);color:#00d4aa;border-color:rgba(0,212,170,.3)}
+        .tag.orange{background:rgba(247,164,29,.1);color:#f7c36a;border-color:rgba(247,164,29,.3)}
+        .tag.purple{background:rgba(108,99,255,.15);color:#a09aff;border-color:rgba(108,99,255,.4)}
+        .tag.red{background:rgba(255,107,107,.1);color:#ff9a9a;border-color:rgba(255,107,107,.3)}
+        .tag.teal{background:rgba(29,198,162,.1);color:#5dd8c5;border-color:rgba(29,198,162,.3)}
+        .tag.yellow {background: rgba(247, 223, 30, 0.1);color: #f7df1e; border-color: rgba(247, 223, 30, 0.3)}
+        .tag.violet {background: rgba(160, 154, 255, 0.15);color: #a09aff;border-color: rgba(160, 154, 255, 0.4);}
+        .gh-link{display:inline-flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);text-decoration:none;padding:4px 10px;border:1px solid rgba(108,99,255,.4);border-radius:6px;transition:background .2s}
+        .gh-link:hover{background:rgba(108,99,255,.15)}
+
+        #lightbox {
+          display: none;
+          position: fixed;
+          z-index: 9999;
+          top: 0; left: 0;
+          width: 100%; height: 100%;
+          background: rgba(0, 0, 0, 0.9);
+          align-items: center;
+          justify-content: center;
+          cursor: zoom-out;
+        }
+
+        #lightbox img {
+          max-width: 90%;
+          max-height: 90%;
+          border-radius: 12px;
+          box-shadow: 0 0 30px rgba(0,0,0,0.5);
+          transition: transform 0.3s ease;
+        }
+
+        .social-section{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:1.5rem;max-width:900px;margin-inline:auto;margin-bottom:2rem}
+        .role-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:1rem 0}
+        .role-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:.9rem;text-align:center}
+        .role-icon{font-size:1.5rem;margin-bottom:.4rem}
+        .role-name{font-size:.8rem;font-weight:500;color:var(--text)}
+        .role-sub{font-size:.7rem;color:var(--muted);margin-top:2px;font-family:'DM Mono',monospace}
+        .screen-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1rem 0}
+        .screen-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+        .screen-header{background:var(--surface);padding:.5rem .75rem;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border)}
+        .dot-r, .dot-y, .dot-g{width:7px;height:7px;border-radius:50%}
+        .dot-r{background:#ff5f57} .dot-y{background:#febc2e} .dot-g{background:#28c840}
+        .screen-title{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-left:4px}
+        .screen-body{padding:.75rem}
+        .mini-stat{display:flex;align-items:center;justify-content:space-between;padding:4px 0;font-size:.75rem}
+        .mini-bar-track{height:4px;background:var(--border);border-radius:2px;flex:1;margin:0 8px}
+        .mini-bar-fill{height:100%;border-radius:2px}
+        .contacts{display:flex;flex-direction:column;gap:8px;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+        .contact-row{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted)}
+        .contact-row i{color:var(--accent);font-size:16px}
+        .footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+    </style>
+</head>
+<body>
+
+    <div id="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="">
+    </div>
+
+    <div class="hero">
+      <div class="badge"><span class="dot"></span>Available for freelance</div>
+      <h1>FullStack <span>Developer</span><br>& System Designer</h1>
+      <p class="subtitle">สร้างระบบ web applications ตั้งแต่ frontend ถึง backend · ออกแบบ system architecture · เขียน diagram และ documentation</p>
+      <div class="stack-pills">
+        <span class="pill h">HTML/CSS</span><span class="pill r">React</span><span class="pill n">Node.js</span><span class="pill p">Python</span>
+        <span class="pill ts">TypeScript</span><span class="pill go">Go</span><span class="pill pg">PostgreSQL</span><span class="pill dk">Docker</span>
+        <span class="pill yellow">JavaScript</span><span class="pill red">SQL Server</span><span class="pill v">PHP</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">// projects</div>
+      <div class="projects">
+        
+        <div class="card">
+          <div class="card-image-grid">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web1.jpeg" alt="Web1" onclick="openLightbox(this.src)">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web2.jpeg" alt="Web2" onclick="openLightbox(this.src)">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web3.jpeg" alt="Web3" onclick="openLightbox(this.src)">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web4.jpeg" alt="Web4" onclick="openLightbox(this.src)">
+          </div>
+          <div class="card-content">
+            <div class="card-header">
+              <div class="card-title">Project Website — Full-Stack Web App</div>
+              <span class="card-num">01</span>
+            </div>
+            <p class="card-desc">พัฒนา web application ครบวงจร ตั้งแต่ออกแบบ UI/UX ไปจนถึง backend API และ database integration</p>
+            <div class="tags">
+              <span class="tag blue">React</span><span class="tag green">Node.js</span><span class="tag orange">Express</span><span class="tag purple">PostgreSQL</span><span class="tag violet">PHP</span><span class="tag orange">HTML/CSS</span>
+            </div>
+            <a class="gh-link" href="https://github.com/WASD-su65/Project-Website"><i class="ti ti-brand-github"></i> github.com/WASD-su65/Project-Website</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image-grid">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web5.jpeg" alt="Web1" onclick="openLightbox(this.src)">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web6.jpeg" alt="Web2" onclick="openLightbox(this.src)">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web7.jpeg" alt="Web3" onclick="openLightbox(this.src)">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web8.jpeg" alt="Web4" onclick="openLightbox(this.src)">
+          </div>
+          <div class="card-content">
+            <div class="card-header">
+              <div class="card-title">Kahoot Quiz Game Module Project - FullStack</div>
+              <span class="card-num">02</span>
+            </div>
+            <p class="card-desc">สร้าง real-time quiz game module แบบ multiplayer ที่ได้แรงบันดาลใจจาก Kahoot ใช้ WebSocket สำหรับ live interaction ระหว่าง host และ players พร้อมระบบ score และ leaderboard</p>
+            <div class="tags">
+              <span class="tag blue">React</span><span class="tag green">Node.js</span><span class="tag orange">Socket.IO</span><span class="tag purple">WebSocket</span><span class="tag teal">Real-time</span><span class="tag red">MongoDB</span><span class="tag yellow">JavaScript</span><span class="tag orange">HTML/SS</span>
+            </div>
+            <a class="gh-link" href="https://github.com/WASD-su65/Kahoot-Quiz-Game-Moudle"><i class="ti ti-brand-github"></i> github.com/WASD-su65/Kahoot-Quiz-Game-Moudle</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-no-image">
+            <i class="ti ti-lock" style="font-size: 2rem; color: var(--accent); opacity: 0.5;"></i>
+            <div style="font-family:'DM Mono'; font-size: 10px; color: var(--muted); margin-top: 8px;">
+              INTERNAL ENTERPRISE PROJECT
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="card-header">
+              <div class="card-title">FullStack Compare File — Internship Project (NT Project)</div>
+              <span class="card-num">03</span>
+            </div>
+            <p class="card-desc">ระบบ compare ไฟล์แบบ full-stack ที่พัฒนาระหว่าง internship รองรับการ upload และเปรียบเทียบไฟล์หลายรูปแบบและสามารถ Download ผลลัพธ์ออกมาได้เป็นไฟล์หลายรูปแบบอีกทั้งยังมีระบบ filter และแสดงผล diff แบบ visual พร้อม highlight ความแตกต่างและยังมีอีกทั้งระบบ Login และแยกตำแหน่งสำหรับคนในองค์กรเพื่อการใช้งานตามตำแหน่ง</p>
+            <div class="tags">
+              <span class="tag blue">React</span><span class="tag green">Python</span><span class="tag orange">FastAPI</span><span class="tag purple">File Processing</span><span class="tag teal">Diff Algorithm</span><span class="tag orange">HTML/CSS</span><span class="tag red">SQL Server</span><span class="tag yellow">JavaScript</span><span class="tag green">Node.js</span>
+            </div>
+            <p class="card-desc">ผลลัพธ์ : ช่วยลดการทำงานของคนในทีมและยังสามารถช่วยให้โอกาสที่ข้อมูลอาจผิดพลาดลดลงเพิ่มสะดวกให้กับคนในทีม</p>
+            <div style="margin-top: 15px; font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace;">
+              <i class="ti ti-lock"></i> Project status: Proprietary / NDA Protected
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image-grid">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web9.png" alt="Web1" onclick="openLightbox(this.src)">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web10.png" alt="Web2" onclick="openLightbox(this.src)">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web11.png" alt="Web3" onclick="openLightbox(this.src)">
+            <img src="file:///Users/poomipat/Desktop/MyPortfolio/Web12.png" alt="Web4" onclick="openLightbox(this.src)">
+          </div>
+          <div class="card-content">
+            <div class="card-header">
+              <div class="card-title">Text-To-Replace — Internship Project</div>
+              <span class="card-num">04</span>
+            </div>
+            <p class="card-desc">เครื่องมือ find-and-replace text อัจฉริยะที่พัฒนาระหว่าง internship รองรับ pattern matching, regex, และ batch processing บนไฟล์หลายรูปแบบ</p>
+           <div class="tags">
+              <span class="tag blue">TypeScript</span><span class="tag green">Node.js</span><span class="tag orange">RegEx Engine</span><span class="tag purple">File I/O</span><span class="tag teal">CLI Tool</span><span class="tag orange">HTML/CSS</span><span class="tag yellow">JavaScript</span>
+            </div>
+            <a class="gh-link" href="https://github.com/WASD-su65/Text-To-Replace-Internship-Project"><i class="ti ti-brand-github"></i> github.com/WASD-su65/Text-To-Replace-Internship-Project</a>
+          </div>
+        </div>
+      </div>
+
+    <div class="section" style="margin-top:.5rem">
+      <div class="section-label">// featured project — social security ecosystem</div>
+      <div class="social-section" style="margin:0;background:var(--surface);border:1px solid rgba(108,99,255,.3)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(108,99,255,.2);display:flex;align-items:center;justify-content:center"><i class="ti ti-shield-check" style="color:#a09aff;font-size:18px"></i></div>
+          <div>
+            <div style="font-weight:500">Digital Social Security Ecosystem</div>
+            <div style="font-size:.75rem;color:var(--muted);font-family:'DM Mono',monospace">Full-stack · System Design · UML Diagrams</div>
+          </div>
+        </div>
+        <p style="font-size:.875rem;color:var(--muted);line-height:1.65;margin-bottom:1.2rem">ออกแบบและพัฒนาระบบประกันสังคมดิจิทัลแบบครบวงจร ครอบคลุม 4 user roles ได้แก่ Insured Person, Employer, Hospital, และ Admin พร้อม UML Class Diagram และ Activity Diagram</p>
+
+        <div class="role-grid">
+          <div class="role-card">
+            <div class="role-icon" style="color:#61dafb">👤</div>
+            <div class="role-name">Insured Person</div>
+            <div class="role-sub">Claims · Contributions</div>
+          </div>
+          <div class="role-card">
+            <div class="role-icon" style="color:#f7a41d">🏢</div>
+            <div class="role-name">Employer</div>
+            <div class="role-sub">Staff · Payroll</div>
+          </div>
+          <div class="role-card">
+            <div class="role-icon" style="color:#00d4aa">🏥</div>
+            <div class="role-name">Hospital</div>
+            <div class="role-sub">Medical Claims</div>
+          </div>
+          <div class="role-card">
+            <div class="role-icon" style="color:#ff9a9a">🛡</div>
+            <div class="role-name">Admin Portal</div>
+            <div class="role-sub">Review · Approve</div>
+          </div>
+        </div>
+
+        <div class="screen-row">
+          <div class="screen-card">
+            <div class="screen-header"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span><span class="screen-title">Employer Dashboard</span></div>
+            <div class="screen-body">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+                <div style="background:rgba(49,120,198,.2);border-radius:8px;padding:6px 8px"><div style="font-size:9px;color:#7ab3f0">Employees</div><div style="font-size:14px;font-weight:500;color:#c0d8f5">125</div></div>
+                <div style="background:rgba(0,168,80,.15);border-radius:8px;padding:6px 8px"><div style="font-size:9px;color:#6fcf97">Coverage</div><div style="font-size:14px;font-weight:500;color:#a8e6c1">118</div></div>
+                <div style="background:rgba(153,50,204,.2);border-radius:8px;padding:6px 8px"><div style="font-size:9px;color:#c084fc">Monthly</div><div style="font-size:14px;font-weight:500;color:#d8b4fe">$56.2K</div></div>
+                <div style="background:rgba(234,88,12,.2);border-radius:8px;padding:6px 8px"><div style="font-size:9px;color:#fb923c">Pending</div><div style="font-size:14px;font-weight:500;color:#fcd3a1">3</div></div>
+              </div>
+              <div style="font-size:9px;color:var(--muted);margin-bottom:4px">Department Contributions</div>
+              <div class="mini-stat"><span style="font-size:9px;color:var(--muted)">Engineering</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:68%;background:#6c63ff"></div></div><span style="font-size:9px;color:#a09aff">$20.2K</span></div>
+              <div class="mini-stat"><span style="font-size:9px;color:var(--muted)">Sales</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:48%;background:#00d4aa"></div></div><span style="font-size:9px;color:#00d4aa">$14.4K</span></div>
+              <div class="mini-stat"><span style="font-size:9px;color:var(--muted)">Marketing</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:42%;background:#f7c36a"></div></div><span style="font-size:9px;color:#f7c36a">$12.6K</span></div>
+            </div>
+          </div>
+          <div class="screen-card">
+            <div class="screen-header"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span><span class="screen-title">Admin Portal</span></div>
+            <div class="screen-body">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+                <div style="background:rgba(49,120,198,.2);border-radius:8px;padding:6px 8px"><div style="font-size:9px;color:#7ab3f0">Pending</div><div style="font-size:14px;font-weight:500;color:#c0d8f5">28</div></div>
+                <div style="background:rgba(0,168,80,.15);border-radius:8px;padding:6px 8px"><div style="font-size:9px;color:#6fcf97">Approved</div><div style="font-size:14px;font-weight:500;color:#a8e6c1">15</div></div>
+                <div style="background:rgba(220,38,38,.15);border-radius:8px;padding:6px 8px"><div style="font-size:9px;color:#f87171">Rejected</div><div style="font-size:14px;font-weight:500;color:#fca5a5">3</div></div>
+                <div style="background:rgba(153,50,204,.2);border-radius:8px;padding:6px 8px"><div style="font-size:9px;color:#c084fc">Avg Time</div><div style="font-size:14px;font-weight:500;color:#d8b4fe">2.4h</div></div>
+              </div>
+              <div style="font-size:9px;color:var(--muted);margin-bottom:4px">Performance</div>
+              <div class="mini-stat"><span style="font-size:9px;color:var(--muted)">Approval rate</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:83%;background:#00d4aa"></div></div><span style="font-size:9px;color:#00d4aa">83.3%</span></div>
+              <div class="mini-stat"><span style="font-size:9px;color:var(--muted)">Reviewed</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:88%;background:#a09aff"></div></div><span style="font-size:9px;color:#a09aff">88</span></div>
+              <div class="mini-stat"><span style="font-size:9px;color:var(--muted)">Avg amount</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:55%;background:#f7c36a"></div></div><span style="font-size:9px;color:#f7c36a">$1,245</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.2rem">
+          <div style="font-size:.75rem;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:.8rem">// Social Security Ecosystem Website</div>
+            <div class="screen-row" style="margin-bottom: 1rem;">
+              <div class="screen-card" style="cursor: pointer;" onclick="openLightbox('Web13.png')">
+                <div class="screen-header"><span class="dot-g"></span><span class="screen-title">Social Security Ecosystem Website Landing Page</span></div>
+                <div style="height: 180px; background: #1a1a25; display: flex; align-items: center; justify-content: center;">
+                  <img src="/Users/poomipat/Desktop/MyPortfolio/Web13.png" style="width:100%; height:100%; object-fit:contain; padding:10px;" 
+                        onerror="this.style.display='none'; this.parentElement.innerHTML+='<span style=\'font-size:10px;color:var(--muted)\'>Image Not Found</span>'">
+                </div>
+              </div>
+              <div class="screen-card" style="cursor: pointer;" onclick="openLightbox('Diagram2.png')">
+                <div class="screen-header"><span class="dot-g"></span><span class="screen-title">Social Security Ecosystem Website Login Page</span></div>
+                <div style="height: 180px; background: #1a1a25; display: flex; align-items: center; justify-content: center;">
+                  <img src="/Users/poomipat/Desktop/MyPortfolio/Web14.png" style="width:100%; height:100%; object-fit:contain; padding:10px;" 
+                        onerror="this.style.display='none'; this.parentElement.innerHTML+='<span style=\'font-size:10px;color:var(--muted)\'>Image Not Found</span>'">
+                </div>
+              </div>
+              <div class="screen-card" style="cursor: pointer;" onclick="openLightbox('Diagram2.png')">
+                <div class="screen-header"><span class="dot-g"></span><span class="screen-title">Social Security Ecosystem Website Main Page</span></div>
+                <div style="height: 180px; background: #1a1a25; display: flex; align-items: center; justify-content: center;">
+                  <img src="/Users/poomipat/Desktop/MyPortfolio/Web15.png" style="width:100%; height:100%; object-fit:contain; padding:10px;" 
+                        onerror="this.style.display='none'; this.parentElement.innerHTML+='<span style=\'font-size:10px;color:var(--muted)\'>Image Not Found</span>'">
+                </div>
+              </div>
+              <div class="screen-card" style="cursor: pointer;" onclick="openLightbox('Diagram2.png')">
+                <div class="screen-header"><span class="dot-g"></span><span class="screen-title">Social Security Ecosystem Website Status Claim Page</span></div>
+                <div style="height: 180px; background: #1a1a25; display: flex; align-items: center; justify-content: center;">
+                  <img src="/Users/poomipat/Desktop/MyPortfolio/Web16.png" style="width:100%; height:100%; object-fit:contain; padding:10px;" 
+                        onerror="this.style.display='none'; this.parentElement.innerHTML+='<span style=\'font-size:10px;color:var(--muted)\'>Image Not Found</span>'">
+                </div>
+              </div>
+              <div class="screen-card" style="cursor: pointer;" onclick="openLightbox('Diagram2.png')">
+                <div class="screen-header"><span class="dot-g"></span><span class="screen-title">Social Security Ecosystem Website Hospital Dashboard Page</span></div>
+                <div style="height: 180px; background: #1a1a25; display: flex; align-items: center; justify-content: center;">
+                  <img src="/Users/poomipat/Desktop/MyPortfolio/Web17.png" style="width:100%; height:100%; object-fit:contain; padding:10px;" 
+                        onerror="this.style.display='none'; this.parentElement.innerHTML+='<span style=\'font-size:10px;color:var(--muted)\'>Image Not Found</span>'">
+                </div>
+              </div>
+              <div class="screen-card" style="cursor: pointer;" onclick="openLightbox('Diagram2.png')">
+                <div class="screen-header"><span class="dot-g"></span><span class="screen-title">Social Security Ecosystem Website Admin Dashboard Page</span></div>
+                <div style="height: 180px; background: #1a1a25; display: flex; align-items: center; justify-content: center;">
+                  <img src="/Users/poomipat/Desktop/MyPortfolio/Web18.png" style="width:100%; height:100%; object-fit:contain; padding:10px;" 
+                        onerror="this.style.display='none'; this.parentElement.innerHTML+='<span style=\'font-size:10px;color:var(--muted)\'>Image Not Found</span>'">
+                </div>
+              </div>
+            </div>
+
+        <div style="margin-top:1.2rem">
+          <div style="font-size:.75rem;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:.8rem">// system architecture & diagrams</div>
+            <div class="screen-row" style="margin-bottom: 1rem;">
+              <div class="screen-card" style="cursor: pointer;" onclick="openLightbox('Diagram1.png')">
+                <div class="screen-header"><span class="dot-g"></span><span class="screen-title">Activity Diagram</span></div>
+                <div style="height: 180px; background: #1a1a25; display: flex; align-items: center; justify-content: center;">
+                  <img src="/Users/poomipat/Desktop/MyPortfolio/Diagram1.png" style="width:100%; height:100%; object-fit:contain; padding:10px;" 
+                        onerror="this.style.display='none'; this.parentElement.innerHTML+='<span style=\'font-size:10px;color:var(--muted)\'>Image Not Found</span>'">
+                </div>
+              </div>
+              <div class="screen-card" style="cursor: pointer;" onclick="openLightbox('Diagram2.png')">
+                <div class="screen-header"><span class="dot-g"></span><span class="screen-title">Class Diagram</span></div>
+                <div style="height: 180px; background: #1a1a25; display: flex; align-items: center; justify-content: center;">
+                  <img src="/Users/poomipat/Desktop/MyPortfolio/Diagram2.png" style="width:100%; height:100%; object-fit:contain; padding:10px;" 
+                        onerror="this.style.display='none'; this.parentElement.innerHTML+='<span style=\'font-size:10px;color:var(--muted)\'>Image Not Found</span>'">
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <span class="tag purple">InsuredPerson</span><span class="tag blue">Employee</span><span class="tag green">Hospital</span><span class="tag orange">ClaimReviewer</span>
+              <span class="tag teal">InsuranceClaim</span><span class="tag purple">SSRight</span><span class="tag blue">Contribution</span><span class="tag red">BankSystem</span>
+              <span class="tag green">Appointment</span><span class="tag orange">BenefitClaim</span><span class="tag teal">Notification</span><span class="tag purple">PersonalDataManager</span>
+            </div>
+        <div style="margin-top:1.2rem">
+          <div style="font-size:.75rem;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:.6rem">// tech stack</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="tag blue">React</span><span class="tag green">Node.js</span><span class="tag orange">Express</span><span class="tag purple">PostgreSQL</span>
+            <span class="tag teal">REST API</span><span class="tag red">JWT</span><span class="tag blue">UML</span><span class="tag green">Activity Diagram</span><span class="tag orange">Class Diagram</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" style="margin-top: 1.5rem">
+      <div class="section-label">// contact</div>
+      <div class="card" style="border-color: rgba(108, 99, 255, 0.3); padding: 1.5rem;"> <div style="font-weight: 500; margin-bottom: .5rem; font-size: 1.2rem;">Let's work together</div>
+        <p style="font-size: .875rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem;">
+          พร้อมรับงาน freelance ทั้ง full-stack development, system design, และ API integration
+        </p>
+        
+        <div class="contacts">
+          <div class="contact-row">
+            <i class="ti ti-brand-github"></i>
+            <a href="https://github.com/WASD-su65" style="color: inherit; text-decoration: none;">github.com/WASD-su65</a>
+          </div>
+          <div class="contact-row">
+            <i class="ti ti-code"></i>
+            <span>FullStack · React · Node.js · Python · System Design</span>
+          </div>
+        </div>
+      </div>
+    </div> <div class="footer">
+      © 2026 POOMIPAT JITKRONGSIT | Built with Passion & Tech Stack: React · Node.js · PostgreSQL · Docker
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            lightboxImg.src = src;
+            lightbox.style.display = 'flex';
+        }
+
+        document.querySelector('#lightbox img').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    </script>
+</body>
+</html>
