@@ -20,7 +20,24 @@
             font-family: 'Syne', 'Kanit', sans-serif; 
             min-height:100vh;
         }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
 
+        .container {
+            display: flex;
+        }
+        @media (max-width: 768px) {
+        .container {
+            flex-direction: column; /* เปลี่ยนจากเรียงแนวนอน เป็นแนวตั้ง */
+        }
+        body {
+            padding: 15px; /* เพิ่มพื้นที่ขอบจอ ไม่ให้ตัวหนังสือชิดขอบเกินไป */
+        }
+        }
         .hero{padding:3rem 2rem 2rem;text-align:center;position:relative;overflow:hidden}
         .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(108,99,255,.25) 0%,transparent 70%);pointer-events:none}
         .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(108,99,255,.15);border:1px solid rgba(108,99,255,.4);border-radius:20px;padding:4px 14px;font-size:12px;color:#a09aff;font-family:'DM Mono',monospace;margin-bottom:1.5rem;letter-spacing:.05em}
